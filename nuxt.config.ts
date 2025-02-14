@@ -25,7 +25,10 @@ export default defineNuxtConfig({
   primevue: {
     options: {
       theme: {
-        preset: Aura, // Set the PrimeVue theme
+        preset: Aura, 
+        options:{
+            darkModeSelector:'light'
+        }// Set the PrimeVue theme
       },
       ripple: true, // Enable ripple effect
     },
