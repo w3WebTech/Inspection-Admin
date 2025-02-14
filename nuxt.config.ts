@@ -1,16 +1,21 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 import Aura from "@primevue/themes/aura";
 
 export default defineNuxtConfig({
-    head: {
-        title: 'test',
-        meta: [
-          // Other meta tags
-        ],
-        link: [
-          { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' } // Adjust the href if your favicon has a different name or format
-        ]
-      },
+  head: {
+    title: 'test',
+    meta: [
+      // Other meta tags
+    ],
+    link: [] // Ensure there are no favicon links here
+  },
+  pwa: {
+    meta: {
+      favicon: false // Disable favicon in PWA settings
+    },
+    icon: {
+      source: false // Disable PWA icons if necessary
+    }
+  },
   devtools: { enabled: false },
   modules: [
     "@nuxtjs/tailwindcss", // Tailwind CSS module
