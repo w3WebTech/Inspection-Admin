@@ -1,12 +1,8 @@
 <template>
     <div class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img
-          class="mx-auto h-10 w-auto"
-          src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-          alt="Your Company"
-        />
-        <h2 class="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
+      
+        <h2 class="mt-24 text-center text-2xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
       </div>
   
       <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -44,7 +40,7 @@
                 type="text"
                 id="userIp"
                 readonly
-                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:outline-indigo-600"
+                class=" ring:none    block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline "
               />
             </div>
           </div>
@@ -59,10 +55,10 @@
           </div>
         </form>
   
-        <p class="mt-10 text-center text-sm text-gray-500">
+        <!-- <p class="mt-10 text-center text-sm text-gray-500">
           Not a member?
           <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Start a 14 day free trial</a>
-        </p>
+        </p> -->
       </div>
     </div>
   </template>
@@ -104,26 +100,31 @@
   });
   
   const handleLogin = async () => {
-    const response = await axios.get('https://api.ipify.org? format=json');
-    // const clientIp = response.data.ip;
-  const clientIp='49.204.130.71';
-    console.log(Array.isArray(allowedIps.value), allowedIps.value); // Debugging
-  
-    if (allowedIps.value.includes(clientIp)) {
-      const enteredEmail = form.value.email;
-      const enteredPassword = form.value.password;
-  
-      const foundUser  = userIdArray.value.find(user => user.eMail === enteredEmail && user.passWord === enteredPassword);
-  
-      if (foundUser ) {
-        router.push('/dashboard');
-      } else {
-        alert('Invalid email or password');
-      }
+  const response = await axios.get('https://api.ipify.org?format=json');
+  //const clientIp = response.data.ip; // Get the actual client IP
+  const clientIp="49.204.130.71"
+  console.log(Array.isArray(allowedIps.value), allowedIps.value); // Debugging
+
+  if (allowedIps.value.includes(clientIp)) {
+    const enteredEmail = form.value.email;
+    const enteredPassword = form.value.password;
+
+    const foundUser  = userIdArray.value.find(user => user.eMail === enteredEmail && user.passWord === enteredPassword);
+
+    if (foundUser ) {
+      // Store email and password in local storage
+      localStorage.setItem('email', enteredEmail);
+      localStorage.setItem('password', enteredPassword); // Note: Storing passwords in local storage is not secure
+
+      // Redirect to the dashboard
+      router.push('/dashboard');
     } else {
-      alert('Access denied. Your IP address is not allowed.');
+      alert('Invalid email or password');
     }
-  };
+  } else {
+    alert('Access denied. Your IP address is not allowed.');
+  }
+};
   
   const getIp = async () => {
     try {
