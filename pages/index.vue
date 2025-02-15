@@ -36,7 +36,7 @@
           <div>
             <div class="mt-2">
               <input
-                v-model="userIp"
+                v-model="demouserIp"
                 type="text"
                 id="userIp"
                 readonly
@@ -71,6 +71,7 @@
   const router = useRouter();
   const allowedIps = ref<string[]>([]); // Initialize as a reactive array
   const userIp = ref<string>('');
+    const demouserIp = ref<string>('');
   const userIdArray = ref<{ eMail: string; passWord: string }[]>([]); // Adjust type as needed
   const form = ref({
     email: '',
@@ -94,6 +95,7 @@
   onMounted(async () => {
     const response = await axios.get('https://api.ipify.org?format=json');
     userIp.value = response.data.ip;
+    demouserIp.value= `IP Address : ${response.data.ip}`;
     console.log(userIp.value, 'userIp');
     await getIp(); // Fetch allowed IPs on mount
     await getId(); // Fetch user IDs on mount

@@ -4,22 +4,22 @@ export default defineNuxtConfig({
   head: {
     title: 'test',
     meta: [
-      // Other meta tags
+      
     ],
-    link: [] // Ensure there are no favicon links here
+    link: []
   },
   pwa: {
     meta: {
-      favicon: false // Disable favicon in PWA settings
+      favicon: false 
     },
     icon: {
-      source: false // Disable PWA icons if necessary
+      source: false 
     }
   },
   devtools: { enabled: false },
   modules: [
-    "@nuxtjs/tailwindcss", // Tailwind CSS module
-    "@primevue/nuxt-module", // PrimeVue module
+    "@nuxtjs/tailwindcss", 
+    "@primevue/nuxt-module", 
   ],
 
   primevue: {
@@ -28,12 +28,12 @@ export default defineNuxtConfig({
         preset: Aura, 
         options:{
             darkModeSelector:'light'
-        }// Set the PrimeVue theme
+        }
       },
-      ripple: true, // Enable ripple effect
+      ripple: true, 
     },
-    autoImport: true, // Automatically import PrimeVue components
+    autoImport: true, 
   },
 
-  compatibilityDate: "2025-02-14", // Set compatibility date
+  compatibilityDate: "2025-02-14", 
 });

@@ -181,16 +181,25 @@
             <!-- Tab Content Section -->
             <div class="mt-4">
               <div v-if="tabs[0].current">
-                <Table :people="openClients" @view-client="openSidePanel" />
+                <div v-if="openClients.length > 0">
+  <newtable :people="openClients" @view-client="openSidePanel" />
+</div>
+<div v-else>
+  <p>Loading...</p>
+</div>
+
               </div>
               <div v-if="tabs[1].current">
-                <Table :people="completedClients" @view-client="openSidePanel" />
+                <newtable :people="completedClients" @view-client="openSidePanel" />
+                <!-- <Table :people="completedClients" @view-client="openSidePanel" /> -->
               </div>
               <div v-if="tabs[2].current">
-                <Table :people="approvedClients" @view-client="openSidePanel" />
+                <newtable  :people="approvedClients" @view-client="openSidePanel" />
+                <!-- <Table :people="approvedClients" @view-client="openSidePanel" /> -->
               </div>
               <div v-if="tabs[3].current">
-                <Table :people="rejectedClients" @view-client="openSidePanel" />
+                <newtable :people="rejectedClients" @view-client="openSidePanel" />
+                <!-- <Table :people="rejectedClients" @view-client="openSidePanel" /> -->
               </div>
             </div>
 
@@ -223,7 +232,8 @@
                               </div>
                             </div>
                             <div class="relative mt-6 flex-1 px-2">
-                              <Accortion :questions="selectedClient.questions" />
+                              <!-- <Accortion :questions="selectedClient.questions" > -->
+                                <questiontabs :questions="selectedClient.questions"/>
                             </div>
                           </div>
                         </DialogPanel>
@@ -243,7 +253,8 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router'; 
-import Table from './components/Table.vue'; // Ensure the Table component is imported
+import Table from './components/Table.vue';
+import newtable from './components/newtable.vue';
 import {
   Dialog,
   DialogPanel,
@@ -293,7 +304,10 @@ const tabs = ref([
   { name: 'Rejected', href: '#rejected', current: false },
 ]);
 
-const openClients = ref([]);
+const openClients = ref([
+
+ 
+]);
 const completedClients = ref([]);
 const approvedClients = ref([]);
 const rejectedClients = ref([]);
