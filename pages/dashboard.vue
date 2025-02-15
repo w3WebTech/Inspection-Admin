@@ -44,10 +44,11 @@
                       </ul>
                     </li>
                     <a href="#" @click.prevent="handleSignOut"
-   class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-indigo-200 hover:bg-indigo-700 hover:text-white">
-  <Cog6ToothIcon class="h-5 w-5 shrink-0 text-indigo-200 group-hover:text-white" aria-hidden="true" />
-  Sign out
-</a>
+                      class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-indigo-200 hover:bg-indigo-700 hover:text-white">
+                      <Cog6ToothIcon class="h-5 w-5 shrink-0 text-indigo-200 group-hover:text-white"
+                        aria-hidden="true" />
+                      Sign out
+                    </a>
 
                   </ul>
                 </nav>
@@ -134,18 +135,18 @@
                 leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100"
                 leave-to-class="transform opacity-0 scale-95">
                 <MenuItems
-  class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
-  <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
-    <a v-if="item.name !== 'Sign out'" :href="item.href"
-      :class="[active ? 'bg-gray-50 outline-none' : '', 'block px-3 py-1 text-sm/6 text-gray-900']">
-      {{ item.name }}
-    </a>
-    <a v-else href="#" @click.prevent="handleSignOut" 
-      :class="[active ? 'bg-gray-50 outline-none' : '', 'block px-3 py-1 text-sm/6 text-gray-900']">
-      {{ item.name }}
-    </a>
-  </MenuItem>
-</MenuItems>
+                  class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
+                  <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
+                  <a v-if="item.name !== 'Sign out'" :href="item.href"
+                    :class="[active ? 'bg-gray-50 outline-none' : '', 'block px-3 py-1 text-sm/6 text-gray-900']">
+                    {{ item.name }}
+                  </a>
+                  <a v-else href="#" @click.prevent="handleSignOut"
+                    :class="[active ? 'bg-gray-50 outline-none' : '', 'block px-3 py-1 text-sm/6 text-gray-900']">
+                    {{ item.name }}
+                  </a>
+                  </MenuItem>
+                </MenuItems>
               </transition>
             </Menu>
           </div>
@@ -182,11 +183,11 @@
             <div class="mt-4">
               <div v-if="tabs[0].current">
                 <div v-if="openClients.length > 0">
-  <newtable :people="openClients" @view-client="openSidePanel" />
-</div>
-<div v-else>
-  <p>Loading...</p>
-</div>
+                  <newtable :people="openClients" @view-client="openSidePanel" />
+                </div>
+                <div v-else>
+                  <p>Loading...</p>
+                </div>
 
               </div>
               <div v-if="tabs[1].current">
@@ -194,7 +195,7 @@
                 <!-- <Table :people="completedClients" @view-client="openSidePanel" /> -->
               </div>
               <div v-if="tabs[2].current">
-                <newtable  :people="approvedClients" @view-client="openSidePanel" />
+                <newtable :people="approvedClients" @view-client="openSidePanel" />
                 <!-- <Table :people="approvedClients" @view-client="openSidePanel" /> -->
               </div>
               <div v-if="tabs[3].current">
@@ -233,7 +234,9 @@
                             </div>
                             <div class="relative mt-6 flex-1 px-2">
                               <!-- <Accortion :questions="selectedClient.questions" > -->
-                                <questiontabs :questions="selectedClient.questions"/>
+                              <questiontabs :questions="selectedClient.data" @approve="handleApprove"
+                                @reject="handleReject" @updateStatus="handleUpdateStatus" />
+
                             </div>
                           </div>
                         </DialogPanel>
@@ -252,7 +255,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router'; 
+import { useRouter } from 'vue-router';
 import Table from './components/Table.vue';
 import newtable from './components/newtable.vue';
 import {
@@ -297,16 +300,11 @@ const userNavigation = [
   { name: 'Sign out', href: '#' },
 ];
 
-const tabs = ref([
-  { name: 'Open', href: '#open', current: true },
-  { name: 'Completed', href: '#completed', current: false },
-  { name: 'Approved', href: '#approved', current: false },
-  { name: 'Rejected', href: '#rejected', current: false },
-]);
+
 
 const openClients = ref([
 
- 
+
 ]);
 const completedClients = ref([]);
 const approvedClients = ref([]);
@@ -317,20 +315,21 @@ const selectedClient = ref(null); // State to hold the currently selected client
 const sidebarOpen = ref(false); // State to control the sidebar visibility
 
 // Fetch the JSON data
-const fetchData = async () => {
-  try {
-    const response = await fetch('/inspectionadmin.json'); // Adjust the path if necessary
-    const data = await response.json();
+// const fetchData = async () => {
+//   try {
+//     const response = await fetch('/inspectionadmin.json'); // Adjust the path if necessary
+//     const data = await response.json();
 
-    // Assign the data to the respective reactive variables
-    openClients.value = data.clients.open;
-    completedClients.value = data.clients.completed;
-    approvedClients.value = data.clients.approved;
-    rejectedClients.value = data.clients.rejected;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-};
+//     // Assign the data to the respective reactive variables
+//     openClients.value = data.clients.open;
+//     completedClients.value = data.clients.completed;
+//     approvedClients.value = data.clients.approved;
+//     rejectedClients.value = data.clients.rejected;
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//   }
+// };
+
 
 // Call fetchData when the component is mounted
 onMounted(() => {
@@ -342,15 +341,87 @@ onMounted(() => {
     // Redirect to the index page if values are not available
     router.push('/'); // Adjust the path to your index page
   } else {
-    fetchData(); // Fetch data if values are present
+    fetchData('open'); // Fetch data if values are present
   }
 });
 
-const setCurrentTab = (selectedTab) => {
+
+
+
+
+const openSidePanel = (client) => {
+  console.log("Selected Client: ", client); // Debugging
+  getQuestions(client.RSessionId)
+
+  // Open the side panel
+};
+const tabs = ref([
+  { name: 'Open', href: '#open', current: true, status: 'open' },
+  { name: 'Completed', href: '#completed', current: false, status: 'completed' },
+  { name: 'Approved', href: '#approved', current: false, status: 'approved' },
+  { name: 'Rejected', href: '#rejected', current: false, status: 'rejected' },
+]);
+
+const setCurrentTab = async (selectedTab) => {
   tabs.value.forEach(tab => {
     tab.current = tab.name === selectedTab.name;
   });
   window.location.hash = selectedTab.href;
+
+  // Fetch data based on the selected tab's status
+  await fetchData(selectedTab.status);
+};
+const handleUpdateStatus = async ({ status, RSessionId }) => {
+  console.log("handleUpdateStatus");
+
+  try {
+    // Call the appropriate API based on the status
+    const response = await fetch(`https://teamap.gwcindia.in/inspection/api/inspection-admin-action.php`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ RAppId: RSessionId, status:status,adminId:"243t5yt" }) // pass the RSessionId to approve/reject
+    });
+    const data = await response.json();
+
+    // Optionally, you can refresh the data or update the local state here
+    console.log(data);
+
+    // Fetch the updated questions or clients if necessary
+    await fetchData('open'); // or the appropriate status
+  } catch (error) {
+    console.error('Error updating status:', error);
+  }
+};
+const fetchData = async (value) => {
+  let status;
+  if (value === 'open') {
+    status = ''
+  } else if (value === 'completed') {
+    status = 'close'
+  } else if (value === 'approved') {
+    status = '100'
+  } else if (value === 'rejected') {
+    status = '111'
+  }
+  try {
+    const response = await fetch(`https://teamap.gwcindia.in/inspection/api/inspection-read-api.php?status=${status}`);
+    const data = await response.json();
+
+    // Assign the data to the respective reactive variables based on the status
+    if (value === 'open') {
+      openClients.value = data.data;
+    } else if (value === 'completed') {
+      completedClients.value = data.data;
+    } else if (value === 'approved') {
+      approvedClients.value = data.data;
+    } else if (value === 'rejected') {
+      rejectedClients.value = data.data;
+    }
+
+    console.log(`${status} Clients:`, data.data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
 };
 
 const handleTabChange = (event) => {
@@ -361,10 +432,59 @@ const handleTabChange = (event) => {
   }
 };
 
-const openSidePanel = (client) => {
-  console.log("Selected Client: ", client); // Debugging
-  selectedClient.value = client; // Set the selected client
-  open.value = true; // Open the side panel
+const getQuestions = async (sessionId) => {
+  try {
+    const response = await fetch(`https://teamap.gwcindia.in/inspection/api/inspection-read-api.php?RAppId=${sessionId}`);
+
+    const data = await response.json();
+    selectedClient.value = data;
+    console.log(selectedClient.value, "selectedClient.value")
+    open.value = true;
+
+
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+const handleApprove = async (questionId) => {
+  console.log("handleApprove");
+  try {
+    // Call an API to update the status to approved
+    const response = await fetch(`https://teamap.gwcindia.in/inspection/api/inspection-read-api.php?=${questionId}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ questionId, status: 'approved' }) // pass the questionId to approve
+    });
+    const data = await response.json();
+    // Update local state to reflect the approved status
+    updateClientStatus(questionId, 'approved');
+  } catch (error) {
+    console.error('Error approving question:', error);
+  }
+};
+
+const handleReject = async (questionId) => {
+  console.log("handleApprove");
+  try {
+    // Call an API to update the status to approved
+    const response = await fetch(`https://teamap.gwcindia.in/inspection/api/inspection-read-api.php?=${questionId}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ questionId, status: 'approved' }) // pass the questionId to approve
+    });
+    const data = await response.json();
+    // Update local state to reflect the approved status
+    updateClientStatus(questionId, 'approved');
+  } catch (error) {
+    console.error('Error approving question:', error);
+  }
+};
+
+const updateClientStatus = (questionId, status) => {
+  const question = selectedClient.value.data.find(q => q.id === questionId);
+  if (question) {
+    question.status = status; // Update the status locally
+  }
 };
 
 </script>

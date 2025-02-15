@@ -12,16 +12,16 @@
                                 class="border rounded p-2 focus:outline-none focus:ring-0"
                             />
                         </div>
-                        <DataTable :value="filteredClients" showGridlines class="rounded-md text-sm">
+                        <DataTable :value="filteredClients" showGridlines class="rounded-md text-sm" >
                             <Column field="EmpId" header="Employee ID" sortable></Column>
                             <Column field="EmpName" header="Employee Name" sortable></Column>
-                            <Column field="customerId" header="Customer ID" sortable></Column>
-                            <Column field="companyName" header="Company Name" sortable></Column>
-                            <Column field="state" header="State" sortable></Column>
-                            <Column field="data" header="Date" sortable></Column>
-                            <Column field="time" header="Time" sortable></Column>
-                            <Column field="status" header="Status" sortable></Column>
-                            <Column field="RappId" header="RappId" sortable></Column>
+                            <Column field="CustomerId" header="Customer ID" sortable></Column>
+                            <Column field="CompanyName" header="Company Name" sortable></Column>
+                            <Column field="State" header="State" sortable></Column>
+                            <Column field="RecordDate" header="Date" sortable></Column>
+                            <Column field="RecordTime" header="Time" sortable></Column>
+                            <!-- <Column field="status" header="Status" sortable></Column> -->
+                            <Column field="RSessionId" header="RSessionId" sortable></Column>
                             <Column header="Action">
                                 <template #body="slotProps">
                                     <Button
@@ -33,6 +33,7 @@
                                     />
                                 </template>
                             </Column>
+                            <template #empty ><span class="flex justify-center  item-center text-center"></span> No Records Found ! </template>
                         </DataTable>
                     </div>
                 </div>
@@ -69,6 +70,7 @@ const filteredClients = computed(() => {
 
 // Function to handle viewing a specific client
 const viewClient = (client) => {
+
     console.log("Viewing client:", client);
     emit('view-client', client); // Emit an event to open the side panel and pass the client data
 };
