@@ -66,14 +66,18 @@
           <AccordionPanel v-for="(question, index) in chunkedQuestions[0]" :key="index" :value="index">
             <AccordionHeader>{{ question.Question }}</AccordionHeader>
             <AccordionContent>
-              <div class="text-sm text-gray-500 font-semibold">
+            <div class="text-sm text-gray-500 font-semibold">
+  <div class="flex justify-start space-x-4 mb-2">
+    <span class="text-gray-400 font-medium">Answer:</span>
+    <span>{{ question.Message ? question.Message : "Message Not Available" }}</span>
+  </div>
 
-                <div class="flex justify-start space-x-4 mb-2">
-                  <span class="text-gray-400 font-medium">Answer:</span>
-                  <span>{{ question.Message ? question.Message : "Message Not Available" }}</span>
-                </div>
+  <!-- Conditionally show image if ImageUrl exists -->
+  <div v-if="question.ImageUrl" class="flex items-center space-x-4">
+    <img :src="question.ImageUrl" alt="Answer Image" class="w-24 h-24 object-cover" />
+  </div>
+</div>
 
-              </div>
 
             </AccordionContent>
           </AccordionPanel>
