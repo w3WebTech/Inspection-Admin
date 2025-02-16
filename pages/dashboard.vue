@@ -383,12 +383,18 @@ const handleUpdateStatus = async ({ status, RSessionId }) => {
   console.log("handleUpdateStatus");
 
   try {
-    // Call the appropriate API based on the status
-    const response = await fetch(`https://teamap.gwcindia.in/inspection/api/inspection-admin-action.php`, {
+    // Create a new FormData object
+    const formData = new FormData();
+    formData.append('RAppId', RSessionId);
+    formData.append('status', status);
+    formData.append('adminId', '243t5yt'); // Add the adminId
+
+    // Call the appropriate API using FormData
+    const response = await fetch('https://teamap.gwcindia.in/inspection/api/inspection-admin-action.php', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ RAppId: RSessionId, status:status,adminId:"243t5yt" }) // pass the RSessionId to approve/reject
+      body: formData // Send FormData as the body
     });
+
     const data = await response.json();
 
     // Optionally, you can refresh the data or update the local state here
@@ -400,6 +406,7 @@ const handleUpdateStatus = async ({ status, RSessionId }) => {
     console.error('Error updating status:', error);
   }
 };
+
 const fetchData = async (value) => {
   let status;
   let openData = [];
