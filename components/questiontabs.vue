@@ -120,7 +120,13 @@
   <div class="flex justify-spacearound gap-4 px-20">
     <Button label="Approve" severity="secondary" variant="outlined" @click="handleApprove(questions[0].RSessionId)" />
     <Button label="Reject" severity="secondary" variant="outlined" @click="handleReject(questions[0].RSessionId)" />
-    <Button label="Download Pdf" severity="secondary" variant="outlined"  @click="downloadPDF(questions.pdf)" />
+   <Button 
+  label="Download Pdf" 
+  severity="secondary" 
+  variant="outlined"  
+  @click="downloadPDF(pdfUrl)"  <!-- Pass the pdfUrl prop to the downloadPDF method -->
+/>
+
   </div>
 </div>
 
@@ -147,9 +153,12 @@ import AccordionHeader from 'primevue/accordionheader';
 import AccordionContent from 'primevue/accordioncontent';
 
 // Props for the questions data
+// Modify props to accept pdfUrl
 const props = defineProps({
   questions: Array,
+  pdfUrl: String,  // Accept the PDF URL from the parent
 });
+
 console.log(props.questions,"prpdata");
 const emit = defineEmits(['updateStatus']); // Define an event called 'updateStatus'
 
@@ -160,23 +169,23 @@ const tabs = ref([
 ]);
 
 const downloadPDF = (pdfUrl) => {
-  debugger
   if (!pdfUrl) {
     console.error('No PDF URL provided.');
     return;
   }
 
-  // Create an invisible anchor tag
+  // Create an invisible anchor tag to trigger the download
   const link = document.createElement('a');
-  link.href = pdfUrl; // Ensure the URL is correctly formed
+  link.href = pdfUrl; // Use the pdfUrl passed as prop
 
-  // Optionally, set a download filename
+  // Extract the file name (optional)
   const fileName = pdfUrl.split('/').pop(); // Extract the filename from the URL
   link.download = fileName;
 
-  // Trigger the click to start the download
+  // Trigger the download
   link.click();
 };
+
 
 
 const chunkedQuestions = computed(() => {
