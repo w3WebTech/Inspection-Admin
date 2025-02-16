@@ -120,7 +120,7 @@
   <div class="flex justify-spacearound gap-4">
     <Button label="Approve" severity="secondary" variant="outlined" @click="handleApprove(questions[0].RSessionId)" />
     <Button label="Reject" severity="secondary" variant="outlined" @click="handleReject(questions[0].RSessionId)" />
-    <Button label="Download PDF" severity="primary" @click="downloadPDF" />
+    <Button label="Download PDF" severity="primary" @click="downloadPDF(questions[0].pdf)" />
   </div>
 </div>
 
@@ -159,7 +159,24 @@ const tabs = ref([
   { name: '23 to 33 questions', href: '#23to33', current: false },
 ]);
 
-const downloadPDF = () => {};
+const downloadPDF = (pdfUrl) => {
+  if (!pdfUrl) {
+    console.error('No PDF URL provided.');
+    return;
+  }
+
+  // Create an invisible anchor tag
+  const link = document.createElement('a');
+  link.href = pdfUrl;
+
+  // Optionally, set a download filename
+  const fileName = pdfUrl.split('/').pop(); // You can customize this further if needed
+  link.download = fileName;
+
+  // Trigger the click to start the download
+  link.click();
+};
+
 const chunkedQuestions = computed(() => {
   const chunkSize = 11;
   const chunks = [];
