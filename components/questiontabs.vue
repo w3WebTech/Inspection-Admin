@@ -124,7 +124,7 @@
   label="Download Pdf" 
   severity="secondary" 
   variant="outlined"  
-  @click="downloadPDF(pdfUrl)"  <!-- Pass the pdfUrl prop to the downloadPDF method -->
+  @click="downloadPDF(pdfUrl)"
 />
 
   </div>
