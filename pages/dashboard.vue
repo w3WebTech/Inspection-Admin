@@ -394,22 +394,32 @@ const handleUpdateStatus = async ({ status, RSessionId }) => {
 };
 const fetchData = async (value) => {
   let status;
+  let openData = [];
+  let closeData = [];
+
   if (value === 'open') {
-    status = ''
+    status = '';
   } else if (value === 'completed') {
-    status = 'close'
+    status = 'close';
   } else if (value === 'approved') {
-    status = '100'
+    status = '100';
   } else if (value === 'rejected') {
-    status = '111'
+    status = '111';
   }
+
   try {
     const response = await fetch(`https://teamap.gwcindia.in/inspection/api/inspection-read-api.php?status=${status}`);
     const data = await response.json();
 
-    // Assign the data to the respective reactive variables based on the status
+    // Filter and categorize data based on 'questions.length'
     if (value === 'open') {
-      openClients.value = data.data;
+      // Split the data based on the condition
+      openData = data.data.filter(item => item.row_count < 33);
+      closeData = data.data.filter(item => item.row_count >= 33);
+
+      // Assign the data to the respective reactive variables
+      openClients.value = openData;
+      completedClients.value = [...completedClients.value, ...closeData]; // Add to completed clients
     } else if (value === 'completed') {
       completedClients.value = data.data;
     } else if (value === 'approved') {
@@ -419,11 +429,11 @@ const fetchData = async (value) => {
     }
 
     console.log(`${status} Clients:`, data.data);
+
   } catch (error) {
     console.error('Error fetching data:', error);
   }
 };
-
 const handleTabChange = (event) => {
   const selectedHref = event.target.value;
   const selectedTab = tabs.value.find(tab => tab.href === selectedHref);
