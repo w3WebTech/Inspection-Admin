@@ -160,6 +160,7 @@ const tabs = ref([
 ]);
 
 const downloadPDF = (pdfUrl) => {
+  debugger
   if (!pdfUrl) {
     console.error('No PDF URL provided.');
     return;
@@ -167,15 +168,16 @@ const downloadPDF = (pdfUrl) => {
 
   // Create an invisible anchor tag
   const link = document.createElement('a');
-  link.href = pdfUrl;
+  link.href = pdfUrl; // Ensure the URL is correctly formed
 
   // Optionally, set a download filename
-  const fileName = pdfUrl.split('/').pop(); // You can customize this further if needed
+  const fileName = pdfUrl.split('/').pop(); // Extract the filename from the URL
   link.download = fileName;
 
   // Trigger the click to start the download
   link.click();
 };
+
 
 const chunkedQuestions = computed(() => {
   const chunkSize = 11;
