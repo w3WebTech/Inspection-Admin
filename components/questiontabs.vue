@@ -125,7 +125,7 @@
 </div>
 
     <div  class="fixed bottom-0 w-full bg-white p-4"
-      v-if="questions[0]?.status !== '111' && questions[0]?.status !== '100'&&questions[0]?.status === 'close'">
+      v-if="questions[0]?.status !== '111' && questions[0]?.status !== '100'&&questions[0]?.status !== 'close'">
       <div class="flex justify-spacearound gap-4">
         <Button label="Approve" severity="secondary" variant="outlined"
           @click="handleApprove(questions[0].RSessionId)" />
