@@ -150,7 +150,7 @@ import AccordionContent from 'primevue/accordioncontent';
 const props = defineProps({
   questions: Array,
 });
-
+console.log(props.questions,"prpdata");
 const emit = defineEmits(['updateStatus']); // Define an event called 'updateStatus'
 
 const tabs = ref([
