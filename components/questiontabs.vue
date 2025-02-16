@@ -117,7 +117,7 @@
       </div>
     </div>
 <div class="fixed bottom-0 w-full bg-white p-4" v-if="questions[0]?.status !== '111' && questions[0]?.status !== '100'&&questions[0]?.pdf !== ''">
-  <div class="flex justify-center gap-4">
+  <div class="flex justify-spacearound gap-4 px-20">
     <Button label="Approve" severity="secondary" variant="outlined" @click="handleApprove(questions[0].RSessionId)" />
     <Button label="Reject" severity="secondary" variant="outlined" @click="handleReject(questions[0].RSessionId)" />
     <Button label="Download Pdf" severity="secondary" variant="outlined"  @click="downloadPDF(questions.pdf)" />
@@ -126,7 +126,7 @@
 
     <div  class="fixed bottom-0 w-full bg-white p-4"
       v-if="questions[0]?.status !== '111' && questions[0]?.status !== '100'&&questions[0]?.pdf === ''">
-      <div class="flex justify-spacearound gap-4">
+      <div class="flex justify-spacearound gap-4 px-20">
         <Button label="Approve" severity="secondary" variant="outlined"
           @click="handleApprove(questions[0].RSessionId)" />
         <Button label="Reject" severity="secondary" variant="outlined" @click="handleReject(questions[0].RSessionId)" />
