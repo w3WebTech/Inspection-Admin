@@ -234,8 +234,16 @@
                             </div>
                             <div class="relative mt-6 flex-1 px-2">
                               <!-- <Accortion :questions="selectedClient.questions" > -->
-                              <questiontabs :questions="selectedClient.data" @approve="handleApprove"
-                                @reject="handleReject" @updateStatus="handleUpdateStatus" />
+                             <!-- <questiontabs :questions="selectedClient.data" @approve="handleApprove"
+                                @reject="handleReject" @updateStatus="handleUpdateStatus" />-->
+                              <questiontabs 
+  :questions="selectedClient.data" 
+  :pdf-url="selectedClient.pdf"  
+  @approve="handleApprove"
+  @reject="handleReject"
+  @updateStatus="handleUpdateStatus" 
+/>
+
 
                             </div>
                           </div>
