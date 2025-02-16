@@ -12,7 +12,7 @@
                                 class="border rounded p-2 focus:outline-none focus:ring-0"
                             />
                         </div>
-                        <DataTable :value="filteredClients" showGridlines class="rounded-md text-sm" paginator :rows="5" :rowsPerPageOptions="[10,20,40,50]" >
+                        <DataTable :value="filteredClients" showGridlines class="rounded-md text-sm" paginator :rows="5" :rowsPerPageOptions="[5,10,20,40,50]" >
                             <Column field="EmpId" header="Employee ID" sortable></Column>
                             <Column field="EmpName" header="Employee Name" sortable></Column>
                             <Column field="CustomerId" header="Customer ID" sortable></Column>
