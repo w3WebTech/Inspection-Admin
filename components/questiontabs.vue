@@ -116,8 +116,16 @@
         </Accordion>
       </div>
     </div>
-    <div class="fixed bottom-0 w-full bg-white p-4"
-      v-if="questions[0]?.status !== '111' && questions[0]?.status !== '100'">
+<div class="fixed bottom-0 w-full bg-white p-4" v-if="questions[0]?.status === 'close'">
+  <div class="flex justify-spacearound gap-4">
+    <Button label="Approve" severity="secondary" variant="outlined" @click="handleApprove(questions[0].RSessionId)" />
+    <Button label="Reject" severity="secondary" variant="outlined" @click="handleReject(questions[0].RSessionId)" />
+    <Button label="Download PDF" severity="primary" @click="downloadPDF" />
+  </div>
+</div>
+
+    <div  class="fixed bottom-0 w-full bg-white p-4"
+      v-if="questions[0]?.status !== '111' && questions[0]?.status !== '100'&&questions[0]?.status === 'close'">
       <div class="flex justify-spacearound gap-4">
         <Button label="Approve" severity="secondary" variant="outlined"
           @click="handleApprove(questions[0].RSessionId)" />
@@ -151,7 +159,7 @@ const tabs = ref([
   { name: '23 to 33 questions', href: '#23to33', current: false },
 ]);
 
-
+const downloadPDF = () => {};
 const chunkedQuestions = computed(() => {
   const chunkSize = 11;
   const chunks = [];
