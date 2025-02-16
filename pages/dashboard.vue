@@ -397,6 +397,7 @@ const fetchData = async (value) => {
   let openData = [];
   let closeData = [];
 
+  // Define status based on the provided value
   if (value === 'open') {
     status = '';
   } else if (value === 'completed') {
@@ -408,32 +409,37 @@ const fetchData = async (value) => {
   }
 
   try {
+    // Fetch data from the API
     const response = await fetch(`https://teamap.gwcindia.in/inspection/api/inspection-read-api.php?status=${status}`);
     const data = await response.json();
 
-    // Filter and categorize data based on 'questions.length'
-    if (value === 'open') {
-      // Split the data based on the condition
-      openData = data.data.filter(item => item.row_count < 33);
-      closeData = data.data.filter(item => item.row_count >= 33);
+    // Ensure data.data is valid and is an array
+    if (Array.isArray(data.data)) {
+      // Filter and categorize data based on 'row_count'
+      if (value === 'open') {
+        openData = data.data.filter(item => item.row_count < 33);
+        closeData = data.data.filter(item => item.row_count >= 33);
 
-      // Assign the data to the respective reactive variables
-      openClients.value = openData;
-      completedClients.value = [...completedClients.value, ...closeData]; // Add to completed clients
-    } else if (value === 'completed') {
-      completedClients.value = data.data;
-    } else if (value === 'approved') {
-      approvedClients.value = data.data;
-    } else if (value === 'rejected') {
-      rejectedClients.value = data.data;
+        // Update reactive variables
+        openClients.value = openData;
+        completedClients.value = [...completedClients.value, ...closeData]; // Add to completed clients
+      } else if (value === 'completed') {
+        completedClients.value = data.data;
+      } else if (value === 'approved') {
+        approvedClients.value = data.data;
+      } else if (value === 'rejected') {
+        rejectedClients.value = data.data;
+      }
+
+      console.log(`${status} Clients:`, data.data);
+    } else {
+      console.error('Data format is invalid:', data);
     }
-
-    console.log(`${status} Clients:`, data.data);
-
   } catch (error) {
     console.error('Error fetching data:', error);
   }
 };
+
 const handleTabChange = (event) => {
   const selectedHref = event.target.value;
   const selectedTab = tabs.value.find(tab => tab.href === selectedHref);
