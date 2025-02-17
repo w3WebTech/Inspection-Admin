@@ -61,13 +61,14 @@ const searchTerm = ref('');
 
 // Computed property for filtered clients based on search term
 const filteredClients = computed(() => {
-    return (props.people || []).filter(client => {
-        return Object.values(client).some(value =>
-            String(value).toLowerCase().includes(searchTerm.value.toLowerCase())
-        );
-    });
+    return (props.people || [])
+        .filter(client => 
+            Object.values(client).some(value =>
+                String(value).toLowerCase().includes(searchTerm.value.toLowerCase())
+            )
+        )
+        .sort((a, b) => new Date(b.RecordDate) - new Date(a.RecordDate)); // Sorting in descending order
 });
-
 // Function to handle viewing a specific client
 const viewClient = (client) => {
 
