@@ -1,5 +1,5 @@
 <template>
-    <div class="px-4 sm:px-6 lg:px-8">
+    <div class="px-4 sm:px-4 lg:px-4">
         <div class="mt-8 flow-root">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -12,7 +12,7 @@
                                 class="border rounded p-2 focus:outline-none focus:ring-0"
                             />
                         </div>
-                        <DataTable :value="filteredClients" showGridlines class="rounded-md text-sm" paginator :rows="5" :rowsPerPageOptions="[5,10,20,40,50]" >
+                        <DataTable :value="filteredClients" showGridlines class="rounded-md text-sm" paginator :rows="10" :rowsPerPageOptions="[10,20,40,50]" >
                             <Column field="EmpId" header="Employee ID" sortable></Column>
                             <Column field="EmpName" header="Employee Name" sortable></Column>
                             <Column field="CustomerId" header="Customer ID" sortable></Column>
@@ -33,6 +33,10 @@
                                     />
                                 </template>
                             </Column>
+                            <template #paginatorend>
+    <span class="font-semibold">Total Records :{{ filteredClients.length }}</span>
+</template>
+
                             <template #empty ><span class="flex justify-center  item-center text-center"></span> No Records Found ! </template>
                         </DataTable>
                     </div>

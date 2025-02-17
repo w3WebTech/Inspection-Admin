@@ -25,8 +25,9 @@
               </TransitionChild>
               <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6 pb-4">
                 <div class="flex h-16 shrink-0 items-center">
-                  <img class="h-5 w-20" src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=white"
-                    alt="Your Company" />
+                  <!-- <img class="h-5 w-20" src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=white"
+                    alt="Your Company" /> -->
+                    AP ADMIN
                 </div>
                 <nav class="flex flex-1 flex-col">
                   <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -61,9 +62,10 @@
 
     <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
       <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6 pb-4">
-        <div class="flex h-16 shrink-0 items-center">
-          <img class="h-5 w-20" src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=white"
-            alt="Your Company" />
+        <div class=" items-center text-white font-bold pt-5  text-2xl">
+          <!-- <img class="h-5 w-20" src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=white"
+            alt="Your Company" /> -->
+            AP ADMIN
         </div>
 
         <nav class="flex flex-1 flex-col">
@@ -83,9 +85,14 @@
             </li>
             <li class="mt-auto">
               <a href="#"
-                class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-indigo-200 hover:bg-indigo-700 hover:text-white">
-                <Cog6ToothIcon class="h-5 w-5 shrink-0 text-indigo-200 group-hover:text-white" aria-hidden="true" />
-                SETTINGS
+                 >
+                <!-- <Cog6ToothIcon class="h-5 w-5 shrink-0 text-indigo-200 group-hover:text-white" aria-hidden="true" click.prevent="handleSignOut" /> -->
+                 <div @click.prevent="handleSignOut"  class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-indigo-200 hover:bg-indigo-700 hover:text-white ">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+</svg>
+ LOGOUT
+</div>
               </a>
             </li>
           </ul>
@@ -94,7 +101,7 @@
     </div>
 
     <div class="lg:pl-72">
-      <div
+      <!-- <div
         class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
         <button type="button" class="-m-2.5 p-2.5 text-gray-700 lg:hidden" @click="sidebarOpen = true">
           <span class="sr-only">Open sidebar</span>
@@ -103,7 +110,7 @@
 
         <div class="h-6 w-px bg-gray-900/10 lg:hidden" aria-hidden="true" />
 
-        <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+    <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
           <form class="grid flex-1 grid-cols-1" action="#" method="GET">
             <input type="search" name="search" aria-label="Search"
               class="col-start-1 row-start-1 block size-full bg-white pl-8 text-base text-gray-900 outline-none placeholder:text-gray-400 sm:text-sm/6"
@@ -150,10 +157,10 @@
               </transition>
             </Menu>
           </div>
-        </div>
-      </div>
+        </div> 
+      </div> -->
 
-      <main class="py-10">
+      <main class="py-3">
         <div class="px-4 sm:px-6 lg:px-8">
           <div>
             <div class="grid grid-cols-1 sm:hidden">
