@@ -135,7 +135,7 @@
       </div>
     </div>
     <div class="fixed bottom-0 w-full bg-white p-4"
-      v-if="questions[0]?.status !== '111' && questions[0]?.status !== '100' && questions[0]?.pdf !== ''">
+      v-if="questions[0]?.status !== '111' && questions[0]?.status !== '100' && pdfUrl !== ''">
       <div class="flex justify-spacearound gap-4 px-20">
         <Button label="Approve" severity="secondary" variant="outlined"
           @click="handleApprove(questions[0].RSessionId)" />
@@ -146,7 +146,7 @@
     </div>
 
     <div class="fixed bottom-0 w-full bg-white p-4"
-      v-if="questions[0]?.status !== '111' && questions[0]?.status !== '100' && questions[0]?.pdf === ''">
+      v-if="questions[0]?.status !== '111' && questions[0]?.status !== '100' && pdfUrl === ''">
       <div class="flex justify-spacearound gap-4 px-20">
         <Button label="Approve" severity="secondary" variant="outlined"
           @click="handleApprove(questions[0].RSessionId)" />

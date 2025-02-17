@@ -400,8 +400,10 @@ const handleUpdateStatus = async ({ status, RSessionId }) => {
     // Optionally, you can refresh the data or update the local state here
     console.log(data);
 
-    // Fetch the updated questions or clients if necessary
-    await fetchData('open'); // or the appropriate status
+    
+    await fetchData('open'); 
+    open.value=false;
+  
   } catch (error) {
     console.error('Error updating status:', error);
   }
