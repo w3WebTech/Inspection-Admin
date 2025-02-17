@@ -34,7 +34,7 @@
                                 </template>
                             </Column>
                             <template #paginatorend>
-    <span class="font-semibold">Total Records :{{ filteredClients.length }}</span>
+    <span class="">Total Records :{{ filteredClients.length }}</span>
 </template>
 
                             <template #empty ><span class="flex justify-center  item-center text-center"></span> No Records Found ! </template>
