@@ -147,7 +147,7 @@
 
     <div class="fixed bottom-0 w-full bg-white p-4"
       v-if="questions[0]?.status !== '111' && questions[0]?.status !== '100' && pdfUrl === ''">
-      <div class="flex justify-spacearound gap-4 px-20">
+      <div class="flex justify-spacearound gap-4 px-40">
         <Button label="Approve" severity="secondary" variant="outlined"
           @click="handleApprove(questions[0].RSessionId)" />
         <Button label="Reject" severity="secondary" variant="outlined" @click="handleReject(questions[0].RSessionId)" />
