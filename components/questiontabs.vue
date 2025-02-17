@@ -5,28 +5,31 @@
       <div class="flex gap-4">
         <div>
           <div class="flex justify-start space-x-2 mb-2">
-          <span class="text-gray-400 font-medium">CustomerId:</span>
-          <span>{{ questions[0].CustomerId }}</span>
+            <span class="text-gray-400 font-medium">CustomerId:</span>
+            <span>{{ questions[0].CustomerId }}</span>
+          </div>
+          <div class="flex justify-start space-x-2 mb-2">
+            <span class="text-gray-400 font-medium">EmpId:</span>
+            <span>{{ questions[0].EmpId }}</span>
+          </div>
         </div>
-        <div class="flex justify-start space-x-2 mb-2">
-          <span class="text-gray-400 font-medium">EmpId:</span>
-          <span>{{ questions[0].EmpId }}</span>
+        <div>
+          <div class="flex justify-start space-x-2 mb-2">
+            <span class="text-gray-400 font-medium">CompanyName:</span>
+            <span>{{ questions[0].CompanyName }}</span>
+          </div>
+          <div class="flex justify-start space-x-2 mb-2">
+            <span class="text-gray-400 font-medium">EmpName:</span>
+            <span>{{ questions[0].EmpName }}</span>
+          </div>
         </div>
-        </div>
-      <div> <div class="flex justify-start space-x-2 mb-2">
-          <span class="text-gray-400 font-medium">CompanyName:</span>
-          <span>{{ questions[0].CompanyName }}</span>
-        </div> <div class="flex justify-start space-x-2 mb-2">
-          <span class="text-gray-400 font-medium">EmpName:</span>
-          <span>{{ questions[0].EmpName }}</span>
-        </div></div>
-       
+
         <div class="flex justify-start space-x-2 mb-2">
           <span class="text-gray-400 font-medium">State:</span>
           <span>{{ questions[0].State }}</span>
         </div>
       </div>
-      
+
 
 
     </div>
@@ -60,23 +63,25 @@
     </div>
 
     <!-- Tab Content Section -->
-    <div class="mt-4">
+    <div class="mt-4 mb-40">
       <div v-if="tabs[0].current">
         <Accordion :value="null">
           <AccordionPanel v-for="(question, index) in chunkedQuestions[0]" :key="index" :value="index">
             <AccordionHeader>{{ question.Question }}</AccordionHeader>
             <AccordionContent>
-            <div class="text-sm text-gray-500 font-semibold">
-  <div class="flex justify-start space-x-4 mb-2">
-    <span class="text-gray-400 font-medium">Answer:</span>
-    <span>{{ question.Message ? question.Message : "Message Not Available" }}</span>
-  </div>
 
-  <!-- Conditionally show image if ImageUrl exists -->
-  <div v-if="question.ImageUrl" class="flex items-center space-x-4">
-    <img :src="question.ImageUrl" alt="Answer Image" class="w-24 h-24 object-cover" />
-  </div>
-</div>
+              <div class="text-sm text-gray-500 font-semibold">
+                <div class="flex justify-start space-x-4 mb-2">
+
+                  <span class="text-gray-400 font-medium">Answer:</span>
+                  <span>{{ question.Message ? question.Message : "Message Not Available" }}</span>
+                </div>
+
+                <div v-if="question.ImageUrl" class="flex items-center space-x-4">
+                  <img :src="'https://teamap.gwcindia.in/inspection/api/images/' + question.ImageUrl" alt="Answer Image"
+                    class="w-24 h-24 object-cover" />
+                </div>
+              </div>
 
 
             </AccordionContent>
@@ -88,13 +93,18 @@
           <AccordionPanel v-for="(question, index) in chunkedQuestions[1]" :key="index" :value="index">
             <AccordionHeader class="truncate">{{ question.Question }}</AccordionHeader>
             <AccordionContent class="text-sm">
-              <div class="text-sm text-gray-500 font-semibold">
 
+              <div class="text-sm text-gray-500 font-semibold">
                 <div class="flex justify-start space-x-4 mb-2">
+
                   <span class="text-gray-400 font-medium">Answer:</span>
-                  <span>{{ question.Message }}</span>
+                  <span>{{ question.Message ? question.Message : "Message Not Available" }}</span>
                 </div>
 
+                <div v-if="question.ImageUrl" class="flex items-center space-x-4">
+                  <img :src="'https://teamap.gwcindia.in/inspection/api/images/' + question.ImageUrl" alt="Answer Image"
+                    class="w-24 h-24 object-cover" />
+                </div>
               </div>
 
             </AccordionContent>
@@ -107,12 +117,16 @@
             <AccordionHeader>{{ question.Question }}</AccordionHeader>
             <AccordionContent class="text-sm">
               <div class="text-sm text-gray-500 font-semibold">
-
                 <div class="flex justify-start space-x-4 mb-2">
+
                   <span class="text-gray-400 font-medium">Answer:</span>
-                  <span>{{ question.Message }}</span>
+                  <span>{{ question.Message ? question.Message : "Message Not Available" }}</span>
                 </div>
 
+                <div v-if="question.ImageUrl" class="flex items-center space-x-4">
+                  <img :src="'https://teamap.gwcindia.in/inspection/api/images/' + question.ImageUrl" alt="Answer Image"
+                    class="w-24 h-24 object-cover" />
+                </div>
               </div>
 
             </AccordionContent>
@@ -120,22 +134,19 @@
         </Accordion>
       </div>
     </div>
-<div class="fixed bottom-0 w-full bg-white p-4" v-if="questions[0]?.status !== '111' && questions[0]?.status !== '100'&&questions[0]?.pdf !== ''">
-  <div class="flex justify-spacearound gap-4 px-20">
-    <Button label="Approve" severity="secondary" variant="outlined" @click="handleApprove(questions[0].RSessionId)" />
-    <Button label="Reject" severity="secondary" variant="outlined" @click="handleReject(questions[0].RSessionId)" />
-   <Button 
-  label="Download Pdf" 
-  severity="secondary" 
-  variant="outlined"  
-  @click="downloadPDF(pdfUrl)"
-/>
+    <div class="fixed bottom-0 w-full bg-white p-4"
+      v-if="questions[0]?.status !== '111' && questions[0]?.status !== '100' && questions[0]?.pdf !== ''">
+      <div class="flex justify-spacearound gap-4 px-20">
+        <Button label="Approve" severity="secondary" variant="outlined"
+          @click="handleApprove(questions[0].RSessionId)" />
+        <Button label="Reject" severity="secondary" variant="outlined" @click="handleReject(questions[0].RSessionId)" />
+        <Button label="Download Pdf" severity="secondary" variant="outlined" @click="downloadPDF(pdfUrl)" />
 
-  </div>
-</div>
+      </div>
+    </div>
 
-    <div  class="fixed bottom-0 w-full bg-white p-4"
-      v-if="questions[0]?.status !== '111' && questions[0]?.status !== '100'&&questions[0]?.pdf === ''">
+    <div class="fixed bottom-0 w-full bg-white p-4"
+      v-if="questions[0]?.status !== '111' && questions[0]?.status !== '100' && questions[0]?.pdf === ''">
       <div class="flex justify-spacearound gap-4 px-20">
         <Button label="Approve" severity="secondary" variant="outlined"
           @click="handleApprove(questions[0].RSessionId)" />
@@ -163,7 +174,7 @@ const props = defineProps({
   pdfUrl: String,  // Accept the PDF URL from the parent
 });
 
-console.log(props.questions,"prpdata");
+console.log(props.questions, "prpdata");
 const emit = defineEmits(['updateStatus']); // Define an event called 'updateStatus'
 
 const tabs = ref([
